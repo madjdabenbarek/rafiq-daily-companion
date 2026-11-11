@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rafiq | Ton compagnon islamique du quotidien</title>
+  <meta name="description" content="Rafiq : date hijri, prochain événement islamique, ayah du jour et duas selon ton humeur. Données : UmmahAPI.">
+  <meta name="theme-color" content="#0f1d2a">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=DM+Sans:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+
+    <header class="top">
+      <div class="bismillah">بِسْمِ ٱللَّهِ</div>
+      <div class="name">Rafiq <span>رفيق</span></div>
+      <div class="divider" aria-hidden="true"><i></i><b></b><i></i></div>
+      <small>Ton compagnon islamique du quotidien</small>
+      <p class="greet" id="greet"></p>
+    </header>
+
+    <section class="card hero">
+      <div class="label">Aujourd'hui</div>
+      <div class="content" id="hijri">Chargement...</div>
+    </section>
+
+    <section class="card">
+      <div class="label">Prochain événement</div>
+      <div class="content" id="event">Chargement...</div>
+    </section>
+
+    <section class="card">
+      <div class="label">Ayah du jour</div>
+      <div class="content" id="ayah">Chargement...</div>
+    </section>
+
+    <section class="card">
+      <div class="label">Dua selon ton humeur</div>
+      <div class="chips" id="chips">
+        <button class="chip active" data-mood="morning">Matin <span class="ar">الصباح</span></button>
+        <button class="chip" data-mood="travel">Voyage <span class="ar">السفر</span></button>
+        <button class="chip" data-mood="distress">Stress <span class="ar">الكرب</span></button>
+        <button class="chip" data-mood="forgiveness">Pardon <span class="ar">المغفرة</span></button>
+        <button class="chip" data-mood="sleep">Sommeil <span class="ar">النوم</span></button>
+      </div>
+      <div class="content" id="dua">Chargement...</div>
+    </section>
+
+    <footer>
+      Réalisé par BENBAREK Madjda<br>
+      Université Djilali Liabès · ISI M2 · Web Service &amp; Sécurité<br>
+      Données : UmmahAPI
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    
+    (function () {
+      var h = new Date().getHours();
+      var hello = h < 5 ? 'Bonne nuit' : h < 18 ? 'Bonjour' : 'Bonsoir';
+      var d = new Date().toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+      document.getElementById('greet').textContent = 'السلام عليكم · ' + hello + ', nous sommes ' + d;
+    })();
+    ['hijri', 'event', 'ayah', 'dua'].forEach(function (id) {
+      var el = document.getElementById(id);
+      new MutationObserver(function () {
+        el.classList.remove('swap');
+        void el.offsetWidth;
+        el.classList.add('swap');
+      }).observe(el, { childList: true });
+    });
+  </script>
+</body>
+</html>
